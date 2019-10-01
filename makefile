@@ -10,8 +10,8 @@ TARGETS=$(subst /raw/,/output/,${SOURCE})
 default: $(TARGETS)
 
 $(TARGETS): SRC=$(subst /output/,/raw/,$@)
-$(TARGETS):
+$(TARGETS): $(subst /output/,/raw/,$@)
 	mkdir -p $(shell dirname $@)
-	HandBrakeCLI --preset-import-file dvd-ac3.json \
-	-Z "dvd-ac3" \
-	-i ${SRC} -o $@
+	nice -n 19 HandBrakeCLI --preset-import-file dvd-ac3.json \
+		-Z "dvd-ac3" \
+		-i ${SRC} -o $@
